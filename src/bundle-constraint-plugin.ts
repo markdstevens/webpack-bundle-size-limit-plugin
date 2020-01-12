@@ -1,7 +1,5 @@
-import validateOptions from 'ts-schema-utils';
 import { processConfig, prepareConfig } from './process-config';
 import { fileSizeDenominations } from './file-size-denominations';
-import { optionsSchema } from './options-schema';
 import { BundleConstraintPluginOptions, Config, Bundle } from './types';
 import { Compiler, compilation as compilationType } from 'webpack';
 import { processOptions } from './process-options';
@@ -14,7 +12,6 @@ class BundleConstraintPlugin {
   private options: BundleConstraintPluginOptions | null = null;
 
   constructor(options: BundleConstraintPluginOptions = {}) {
-    validateOptions(optionsSchema, options, 'BundleConstraintPlugin');
     this.options = options;
   }
 

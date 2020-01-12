@@ -22,8 +22,5 @@
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "typescript": "^3.7.4"
-  },
-  "dependencies": {
-    "ts-schema-utils": "^1.0.1"
   }
 }
