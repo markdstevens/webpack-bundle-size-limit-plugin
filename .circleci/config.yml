@@ -26,6 +26,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: curl -L https://unpkg.com/@pnpm/self-installer | node
       - run: pnpm i
 
       - save_cache:
