@@ -1,4 +1,4 @@
-export interface BundleConstraintPluginOptions {
+export interface WebpackBundleSizeLimitPluginOptions {
   /**
    * Absolute path to config file. If not specified, the "bundles" field in
    * package.json will be used. If that field does not exist, an error will

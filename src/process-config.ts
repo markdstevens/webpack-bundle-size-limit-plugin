@@ -1,11 +1,11 @@
 import { existsSync } from 'fs';
 import { error } from './error';
-import { BundleConstraintPluginOptions, Config } from './types';
+import { WebpackBundleSizeLimitPluginOptions, Config } from './types';
 import { fileSizeDenominations } from './file-size-denominations';
-import { Compilation } from './bundle-constraint-plugin';
+import { Compilation } from './webpack-bundle-size-limit-plugin';
 
 export const processConfig = (
-  options: BundleConstraintPluginOptions,
+  options: WebpackBundleSizeLimitPluginOptions,
   compilation: Compilation,
 ): string | null => {
   let configFile = null;

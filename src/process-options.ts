@@ -1,11 +1,11 @@
-import { BundleConstraintPluginOptions } from './types';
+import { WebpackBundleSizeLimitPluginOptions } from './types';
 import { error } from './error';
-import { Compilation } from './bundle-constraint-plugin';
+import { Compilation } from './webpack-bundle-size-limit-plugin';
 
 export const processOptions = (
-  rawOptions: BundleConstraintPluginOptions | null,
+  rawOptions: WebpackBundleSizeLimitPluginOptions | null,
   compilation: Compilation,
-): BundleConstraintPluginOptions => {
+): WebpackBundleSizeLimitPluginOptions => {
   const options = Object.assign({}, rawOptions);
   options.extensions = options.extensions ?? ['js'];
   if (options.extensions) {

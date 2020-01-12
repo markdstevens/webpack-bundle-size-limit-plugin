@@ -5,7 +5,7 @@
   "main": "./lib/bundle-constraint-plugin.js",
   "types": "./lib/types.d.ts",
   "scripts": {
-    "build": "rimraf lib && tsc && cp src/bundle-constraint-plugin.d.ts ./lib/types.d.ts",
+    "build": "rimraf lib && tsc && cp src/webpack-bundle-size-limit-plugin.d.ts ./lib/types.d.ts",
     "lint": "eslint src/**/*.ts --fix"
   },
   "keywords": [],
