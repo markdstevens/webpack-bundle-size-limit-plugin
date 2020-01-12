@@ -23,8 +23,16 @@ In your package.json, add a "bundles" section like so:
 ```
 "bundles": [
   {
-    name: 'client.bundle.js',
-    
+    "name": "client.bundle.js",
+    "maxSize": "10K"
+  },
+  {
+    name: "vendor.bundle.js",
+    maxSize: "1.3M"
   }
 ]
+```
+Then run webpack:
+```
+pnpm run webpack
 ```
