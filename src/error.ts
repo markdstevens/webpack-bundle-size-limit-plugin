@@ -1,1 +1,2 @@
-export const error = (err: string) => `bundle-constraint-plugin. ${err}`;
+export const error = (err: string): string =>
+  `bundle-constraint-plugin. ${err}`;
