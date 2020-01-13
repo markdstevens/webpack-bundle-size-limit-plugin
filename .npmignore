@@ -6,3 +6,4 @@ pnpm-error.log
 pnpm-debug.log
 .circleci/
 src/
+tsconfig.json
