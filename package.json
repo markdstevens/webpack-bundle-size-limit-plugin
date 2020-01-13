@@ -1,15 +1,15 @@
 {
   "name": "webpack-bundle-size-limit-plugin",
   "version": "0.0.5",
-  "description": "",
+  "description": "A webpack plugin for enforcing strict bundle size limits",
   "main": "./lib/webpack-bundle-size-limit-plugin.js",
   "types": "./lib/types.d.ts",
   "scripts": {
     "build": "rimraf lib && tsc && cp src/webpack-bundle-size-limit-plugin.d.ts ./lib/types.d.ts",
     "lint": "eslint src/**/*.ts --fix",
-    "release:patch": "npm version patch",
-    "release:minor": "npm version patch",
-    "release:major": "npm version patch"
+    "release:patch": "npm version patch && git push --tags origin master",
+    "release:minor": "npm version minor && git push --tags origin master",
+    "release:major": "npm version major && git push --tags origin master"
   },
   "keywords": [],
   "author": "Mark Stevens",

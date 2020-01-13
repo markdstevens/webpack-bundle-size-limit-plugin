@@ -7,22 +7,26 @@ export const processOptions = (
   compilation: Compilation
 ): WebpackBundleSizeLimitPluginOptions => {
   const options = Object.assign({}, rawOptions);
-  options.extensions = options.extensions ?? ['js'];
+  options.extensions = options.extensions ?? ['*'];
   if (options.extensions) {
     if (!(options.extensions instanceof Array)) {
       compilation.errors.push(
-        error(`Invalid type for options.extensions.
-  Expected: Array
-  Found:    ${typeof options.extensions}`)
+        error([
+          'Invalid type for options.extensions.',
+          'Expected: Array',
+          `Found:    ${typeof options.extensions}`
+        ])
       );
     }
 
     for (const option of options.extensions) {
       if (typeof option !== 'string') {
         compilation.errors.push(
-          error(`Invalid type for options.extensions.${option}
-  Expected: string
-  Found:    ${typeof option}`)
+          error([
+            `Invalid type for options.extensions.${option}`,
+            'Expected: string',
+            `Found:    ${typeof option}`
+          ])
         );
       }
     }

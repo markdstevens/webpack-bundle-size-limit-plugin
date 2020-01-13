@@ -16,6 +16,12 @@ class WebpackBundleSizeLimitPlugin {
   }
 
   private filterAssetByFileExtension(file: string): boolean {
+    if (
+      this.options?.extensions?.length &&
+      this.options.extensions[0] === '*'
+    ) {
+      return false;
+    }
     if (this.options?.extensions?.length) {
       return !this.options.extensions?.some(ext => file.endsWith(ext));
     }
