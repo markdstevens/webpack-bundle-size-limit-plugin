@@ -18,5 +18,17 @@ export const fileSizeDenominations: FileSizeDenomination = {
   KB: kiloByte,
   MB: megaByte,
   GB: gigaByte,
-  TB: teraByte
+  TB: teraByte,
+
+  BYTE: byte,
+  KILOBYTE: kiloByte,
+  MEGABYTE: megaByte,
+  GIGABYTE: gigaByte,
+  TERABYTE: teraByte,
+
+  BYTES: byte,
+  KILOBYTES: kiloByte,
+  MEGABYTS: megaByte,
+  GIGABYTES: gigaByte,
+  TERABYTES: teraByte
 };
