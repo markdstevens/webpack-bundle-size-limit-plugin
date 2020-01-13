@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  lint:
+  build:
     docker:
       - image: circleci/node:10.9.0
 
@@ -14,13 +14,23 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: sudo npm add -g pnpm
-      - run: pnpm i
+      - run: 
+        - name: Install pnpm
+        - command: sudo npm add -g pnpm
+      
+      - run:
+        - name: Install packages
+        - command: pnpm i
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: pnpm run build
-      - run: pnpm run lint
+      - run: 
+        - name: Typescript build
+        - command: pnpm run build
+      
+      - run:
+        - name: Lint
+        - command: pnpm run lint
