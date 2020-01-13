@@ -69,6 +69,8 @@ workflows:
           requires:
             - build
           filters:
+            tags:
+              only: /^v.*/
             branches:
               only:
                 - master
