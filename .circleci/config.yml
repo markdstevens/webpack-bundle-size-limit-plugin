@@ -15,12 +15,12 @@ jobs:
             - v1-dependencies-
 
       - run: 
-        - name: Install pnpm
-        - command: sudo npm add -g pnpm
+        name: Install pnpm
+        command: sudo npm add -g pnpm
       
       - run:
-        - name: Install packages
-        - command: pnpm i
+        name: Install packages
+        command: pnpm i
 
       - save_cache:
           paths:
@@ -28,9 +28,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: 
-        - name: Typescript build
-        - command: pnpm run build
+        name: Typescript build
+        command: pnpm run build
       
       - run:
-        - name: Lint
-        - command: pnpm run lint
+        name: Lint
+        command: pnpm run lint
