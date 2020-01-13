@@ -8,7 +8,7 @@ import { error } from './error';
 
 export type Compilation = compilationType.Compilation;
 
-class BundleConstraintPlugin {
+class WebpackBundleSizeLimitPlugin {
   private options: WebpackBundleSizeLimitPluginOptions | null = null;
 
   constructor(options: WebpackBundleSizeLimitPluginOptions = {}) {
@@ -70,7 +70,7 @@ class BundleConstraintPlugin {
 
   apply(compiler: Compiler): void {
     compiler.hooks.emit.tapAsync(
-      'BundleConstraintPlugin',
+      'WebpackBundleSizeLimitPlugin',
       (compilation: Compilation, callback: any) => {
         const options = processOptions(this.options, compilation);
         const configFile = processConfig(options, compilation);
@@ -119,4 +119,4 @@ class BundleConstraintPlugin {
   }
 }
 
-module.exports = BundleConstraintPlugin;
+module.exports = WebpackBundleSizeLimitPlugin;

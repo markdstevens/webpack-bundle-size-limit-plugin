@@ -1,8 +1,8 @@
 {
-  "name": "bundle-constraint-plugin",
+  "name": "webpack-bundle-size-limit-plugin",
   "version": "1.0.0",
   "description": "",
-  "main": "./lib/bundle-constraint-plugin.js",
+  "main": "./lib/webpack-bundle-size-limit-plugin.js",
   "types": "./lib/types.d.ts",
   "scripts": {
     "build": "rimraf lib && tsc && cp src/webpack-bundle-size-limit-plugin.d.ts ./lib/types.d.ts",

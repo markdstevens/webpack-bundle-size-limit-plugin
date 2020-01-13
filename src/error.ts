@@ -1,2 +1,2 @@
 export const error = (err: string): string =>
-  `bundle-constraint-plugin. ${err}`;
+  `webpack-bundle-size-limit-plugin. ${err}`;
