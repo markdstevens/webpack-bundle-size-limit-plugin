@@ -1,6 +1,6 @@
 import { processConfig, prepareConfig } from './process-config';
 import { fileSizeDenominations } from './file-size-denominations';
-import { BundleConstraintPluginOptions, Config, Bundle } from './types';
+import { WebpackBundleSizeLimitPluginOptions, Config, Bundle } from './types';
 import { Compiler, compilation as compilationType } from 'webpack';
 import { processOptions } from './process-options';
 import { execSync } from 'child_process';
@@ -9,9 +9,9 @@ import { error } from './error';
 export type Compilation = compilationType.Compilation;
 
 class BundleConstraintPlugin {
-  private options: BundleConstraintPluginOptions | null = null;
+  private options: WebpackBundleSizeLimitPluginOptions | null = null;
 
-  constructor(options: BundleConstraintPluginOptions = {}) {
+  constructor(options: WebpackBundleSizeLimitPluginOptions = {}) {
     this.options = options;
   }
 
@@ -26,7 +26,7 @@ class BundleConstraintPlugin {
     fileName: string,
     config: Config,
     compilation: Compilation,
-    options: BundleConstraintPluginOptions,
+    options: WebpackBundleSizeLimitPluginOptions,
   ): Bundle | null {
     const bundles = config?.bundles.filter(bundle => bundle.name === fileName);
     if (bundles && bundles.length) {
