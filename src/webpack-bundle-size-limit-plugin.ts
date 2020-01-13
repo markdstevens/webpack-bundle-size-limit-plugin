@@ -26,7 +26,7 @@ class WebpackBundleSizeLimitPlugin {
     fileName: string,
     config: Config,
     compilation: Compilation,
-    options: WebpackBundleSizeLimitPluginOptions,
+    options: WebpackBundleSizeLimitPluginOptions
   ): Bundle | null {
     const bundles = config?.bundles.filter(bundle => bundle.name === fileName);
     if (bundles && bundles.length) {
@@ -41,15 +41,15 @@ class WebpackBundleSizeLimitPlugin {
       if (match.length === 1) {
         return config?.bundles.filter(
           bundle =>
-            new RegExp(bundle.name).toString() === match[0].regex.toString(),
+            new RegExp(bundle.name).toString() === match[0].regex.toString()
         )[0];
       }
       compilation.errors.push(
         error(
           `File "${fileName}" matches multiple patterns: ${match
             .map(config => `"${config.fileName}"`)
-            .join(', ')}`,
-        ),
+            .join(', ')}`
+        )
       );
       return null;
     }
@@ -68,6 +68,16 @@ class WebpackBundleSizeLimitPlugin {
       100}${unit}`;
   }
 
+  private getSizeInBytes(asset: string, { outputPath }: Compiler): number {
+    return parseFloat(
+      execSync(
+        `wc -c ${outputPath}/${asset} | awk '{$1=$1};1' | cut -d$' ' -f1`
+      )
+        .toString()
+        .trim()
+    );
+  }
+
   apply(compiler: Compiler): void {
     compiler.hooks.emit.tapAsync(
       'WebpackBundleSizeLimitPlugin',
@@ -83,14 +93,8 @@ class WebpackBundleSizeLimitPlugin {
               if (!this.filterAssetByFileExtension(asset)) {
                 const fileWithConfig = {
                   fileName: asset,
-                  size: parseFloat(
-                    execSync(
-                      `wc -c dist/${asset} | awk '{$1=$1};1' | cut -d$' ' -f1`,
-                    )
-                      .toString()
-                      .trim(),
-                  ),
-                  config: this.getConfig(asset, config, compilation, options),
+                  size: this.getSizeInBytes(asset, compiler),
+                  config: this.getConfig(asset, config, compilation, options)
                 };
 
                 if (
@@ -98,14 +102,15 @@ class WebpackBundleSizeLimitPlugin {
                   fileWithConfig.size > fileWithConfig.config.maxSizeInBytes
                 ) {
                   compilation.errors.push(
-                    error(`Bundle size exceeded.
-  Bundle name:  ${fileWithConfig.fileName}
-  Bundle size:  ${this.fromByteToX(
-    fileWithConfig.size,
-    fileWithConfig.config.unit,
-  )}
-  Bundle limit: ${fileWithConfig.config.maxSize}
-    `),
+                    error([
+                      'Bundle size exceeded.',
+                      `Bundle name:  ${fileWithConfig.fileName}`,
+                      `Bundle size:  ${this.fromByteToX(
+                        fileWithConfig.size,
+                        fileWithConfig.config.unit
+                      )}`,
+                      `Bundle limit: ${fileWithConfig.config.maxSize}`
+                    ])
                   );
                 }
               }
@@ -114,7 +119,7 @@ class WebpackBundleSizeLimitPlugin {
         }
 
         callback();
-      },
+      }
     );
   }
 }
