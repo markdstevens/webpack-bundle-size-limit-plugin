@@ -40,7 +40,7 @@ export const prepareConfig = (
     compilation.errors.push(
       error([
         'Invalid type for config.bundles',
-        `Expected: Array`,
+        'Expected: Array',
         `Found:    ${typeof config.bundles}`
       ])
     );
