@@ -51,6 +51,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
+          name: "Install pnpm"
+          command: sudo npm add -g pnpm
+      - run:
           name: Publish package
           command: pnpm publish
             
