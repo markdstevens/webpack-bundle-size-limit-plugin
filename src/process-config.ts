@@ -6,7 +6,7 @@ import { Compilation } from './webpack-bundle-size-limit-plugin';
 
 export const processConfig = (
   options: WebpackBundleSizeLimitPluginOptions,
-  compilation: Compilation,
+  compilation: Compilation
 ): string | null => {
   let configFile = null;
   if (options.config) {
@@ -28,7 +28,7 @@ export const processConfig = (
 
 export const prepareConfig = (
   rawConfig: Config | null,
-  compilation: Compilation,
+  compilation: Compilation
 ): Config | null => {
   const config = Object.assign({}, rawConfig);
   if (!config.bundles) {
@@ -38,9 +38,11 @@ export const prepareConfig = (
 
   if (!(config.bundles instanceof Array)) {
     compilation.errors.push(
-      error(`Invalid type for config.bundles.
-  Expected: Array
-  Found:    ${typeof config.bundles}`),
+      error([
+        'Invalid type for config.bundles',
+        'Expected: Array',
+        `Found:    ${typeof config.bundles}`
+      ])
     );
     return null;
   }
@@ -54,39 +56,58 @@ export const prepareConfig = (
     if (!bundle.maxSize) {
       compilation.errors.push(
         error(
-          `Config entry with name "${bundle.name}" is missing "maxSize" property`,
-        ),
+          `Config entry with name "${bundle.name}" is missing "maxSize" property`
+        )
       );
       return;
     }
 
     if (typeof bundle.maxSize !== 'string') {
       compilation.errors.push(
-        error(`Invalid type for "maxSize" field in config entry with name "${
-          bundle.name
-        }".
-  Expected: string
-  Found:    ${typeof bundle.maxSize}`),
+        error([
+          `Invalid type for "maxSize" field in config entry with name "${bundle.name}".`,
+          'Expected: string',
+          `Found:    ${typeof bundle.maxSize})`
+        ])
       );
       return;
     }
 
-    const sizeDenomination = bundle.maxSize.substring(
-      bundle.maxSize.length - 1,
+    bundle.maxSize = bundle.maxSize.replace(/\s/g, '');
+
+    let sizeDenomination = bundle.maxSize
+      .substring(bundle.maxSize.length - 2)
+      .toLowerCase();
+    let isSizeDenominationValid = Object.keys(fileSizeDenominations).some(
+      validSizeDenomination =>
+        validSizeDenomination.toLowerCase() === sizeDenomination
     );
-    const isSizeDenominationValid = Object.keys(fileSizeDenominations).some(
-      validSizeDenomination => validSizeDenomination === sizeDenomination,
-    );
+
+    if (!isSizeDenominationValid) {
+      sizeDenomination = bundle.maxSize
+        .substring(bundle.maxSize.length - 1)
+        .toLowerCase();
+      isSizeDenominationValid = Object.keys(fileSizeDenominations).some(
+        validSizeDenomination =>
+          validSizeDenomination.toLowerCase() === sizeDenomination
+      );
+    }
+
     if (!isSizeDenominationValid) {
       compilation.errors.push(
-        error(`Invalid file size denomination for "maxSize" field in config entry with name "${bundle.name}"
-  Expected: one of ["B", "K", "M", "G"]
-  Found:    ${sizeDenomination}`),
+        error([
+          `Invalid file size denomination for "maxSize" field in config entry with name "${bundle.name}"`,
+          'Expected: one of ["B", "K", "KB", "M", "MB", "G", "GB", "T", "TB"]',
+          `Found:    ${sizeDenomination}`
+        ])
       );
       return;
     }
 
-    const unitlessSize = bundle.maxSize.substring(0, bundle.maxSize.length - 1);
+    const unitlessSize = bundle.maxSize.substring(
+      0,
+      bundle.maxSize.length - sizeDenomination.length
+    );
     let parsedUnitlessSize = 1;
     try {
       parsedUnitlessSize = parseFloat(unitlessSize);
@@ -95,16 +116,19 @@ export const prepareConfig = (
       }
     } catch (e) {
       compilation.errors.push(
-        error(`Invalid number for "maxSize" field in config entry with name "${bundle.name}" 
-  Expected: valid number
-  Found:    ${unitlessSize}`),
+        error([
+          `Invalid number for "maxSize" field in config entry with name "${bundle.name}"`,
+          'Expected: valid number',
+          `Found:    ${unitlessSize}`
+        ])
       );
       return;
     }
 
     bundle.maxSizeInBytes =
-      parsedUnitlessSize * fileSizeDenominations[sizeDenomination];
-    bundle.unit = sizeDenomination;
+      parsedUnitlessSize *
+      fileSizeDenominations[sizeDenomination.toUpperCase()];
+    bundle.unit = sizeDenomination.toUpperCase();
   });
 
   return config;

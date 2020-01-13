@@ -4,3 +4,5 @@
 .prettierrc.js
 pnpm-error.log
 pnpm-debug.log
+.circleci/
+src/

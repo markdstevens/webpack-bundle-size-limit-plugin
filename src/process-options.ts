@@ -4,7 +4,7 @@ import { Compilation } from './webpack-bundle-size-limit-plugin';
 
 export const processOptions = (
   rawOptions: WebpackBundleSizeLimitPluginOptions | null,
-  compilation: Compilation,
+  compilation: Compilation
 ): WebpackBundleSizeLimitPluginOptions => {
   const options = Object.assign({}, rawOptions);
   options.extensions = options.extensions ?? ['js'];
@@ -13,7 +13,7 @@ export const processOptions = (
       compilation.errors.push(
         error(`Invalid type for options.extensions.
   Expected: Array
-  Found:    ${typeof options.extensions}`),
+  Found:    ${typeof options.extensions}`)
       );
     }
 
@@ -22,7 +22,7 @@ export const processOptions = (
         compilation.errors.push(
           error(`Invalid type for options.extensions.${option}
   Expected: string
-  Found:    ${typeof option}`),
+  Found:    ${typeof option}`)
         );
       }
     }
