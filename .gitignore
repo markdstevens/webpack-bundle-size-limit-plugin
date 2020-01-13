@@ -1,5 +1,5 @@
 node_modules/
 lib/
 
-.pnpm-debug.log
-.pnpm-error.log
+pnpm-error.log
+pnpm-debug.log

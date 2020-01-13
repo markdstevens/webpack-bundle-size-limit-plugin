@@ -2,5 +2,5 @@
 .gitignore
 .eslintrc.js
 .prettierrc.js
-.pnpm-debug.log
-.pnpm-error.log
+pnpm-error.log
+pnpm-debug.log
