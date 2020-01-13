@@ -7,7 +7,9 @@
   "scripts": {
     "build": "rimraf lib && tsc && cp src/webpack-bundle-size-limit-plugin.d.ts ./lib/types.d.ts",
     "lint": "eslint src/**/*.ts --fix",
-    "release": "np"
+    "release:patch": "npm version patch",
+    "release:minor": "npm version patch",
+    "release:major": "npm version patch"
   },
   "keywords": [],
   "author": "Mark Stevens",
@@ -20,7 +22,6 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
-    "np": "^5.2.1",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "typescript": "^3.7.4"
