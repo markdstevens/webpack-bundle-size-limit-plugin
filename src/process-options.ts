@@ -10,20 +10,24 @@ export const processOptions = (
   options.extensions = options.extensions ?? ['*'];
   if (options.extensions) {
     if (!(options.extensions instanceof Array)) {
-      compilation.errors.push([
-        'Invalid type for options.extensions.',
-        'Expected: Array',
-        `Found:    ${typeof options.extensions}`
-      ]);
+      compilation.errors.push(
+        error([
+          'Invalid type for options.extensions.',
+          'Expected: Array',
+          `Found:    ${typeof options.extensions}`
+        ])
+      );
     }
 
     for (const option of options.extensions) {
       if (typeof option !== 'string') {
-        compilation.errors.push([
-          `Invalid type for options.extensions.${option}`,
-          'Expected: string',
-          `Found:    ${typeof option}`
-        ]);
+        compilation.errors.push(
+          error([
+            `Invalid type for options.extensions.${option}`,
+            'Expected: string',
+            `Found:    ${typeof option}`
+          ])
+        );
       }
     }
   }
