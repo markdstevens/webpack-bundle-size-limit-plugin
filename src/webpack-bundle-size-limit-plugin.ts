@@ -79,7 +79,7 @@ class WebpackBundleSizeLimitPlugin {
   }
 
   apply(compiler: Compiler): void {
-    compiler.hooks.emit.tapAsync(
+    compiler.hooks.afterEmit.tapAsync(
       'WebpackBundleSizeLimitPlugin',
       (compilation: Compilation, callback: any) => {
         const options = processOptions(this.options, compilation);
