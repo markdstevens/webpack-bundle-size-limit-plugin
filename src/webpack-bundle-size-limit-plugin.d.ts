@@ -19,8 +19,8 @@ interface WebpackBundleSizeLimitPluginOptions {
   enforceForAllBundles?: boolean;
 }
 
-export declare class BundleConstraintPlugin {
+export declare class WebpackBundleSizeLimitPlugin {
   constructor(options?: WebpackBundleSizeLimitPluginOptions);
 }
 
-export default BundleConstraintPlugin;
+export default WebpackBundleSizeLimitPlugin;
