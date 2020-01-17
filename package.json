@@ -14,6 +14,10 @@
   "keywords": [],
   "author": "Mark Stevens",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/markdstevens/webpack-bundle-size-limit-plugin/"
+  },
   "devDependencies": {
     "@types/webpack": "^4.41.2",
     "@typescript-eslint/eslint-plugin": "^2.15.0",
