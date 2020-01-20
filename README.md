@@ -59,16 +59,32 @@ module.exports = {
   ]
 };
 ```
-### extensions
-By default, all emitted assets will be analyzed, but you can specify exactly which type of assets the plugin analyzes with the `extensions` option:
+### include
+By default, all emitted assets will be analyzed, but you can specify exactly which type of assets the plugin analyzes with the `include` option:
 ```
 plugins: [
   new WebpackBundleSizeLimitPlugin({
-    extensions: ['js', 'css'];
+    include: ['js', 'css'];
   });
 ]
 ```
 Now, only generated assets with `js` or `css` file extensions will be anlyzed by the plugin.
+
+If this option is specified, the `exclude` option should not be specified.
+
+### Exclude
+This is the opposite of the `include` option. All extensions listed in the 'exclude' array will be excluded from analysis by the plugin.
+```
+plugins: [
+  new WebpackBundleSizeLimitPlugin({
+    exclude: ['png', 'jpg'];
+  });
+]
+```
+Now, all generated files except files with `.png` or `.jpg` extensions will be analyzed by the plugin.
+
+By default, no assets will be excluded. If this option is specified, the `include` option should not be specified.
+
 
 ### enforceForAllBundles
 By default, if webpack emits an asset that is not present in the config, a warning will be logged. By setting this config to `true`, webpack will log an error and fail the build.

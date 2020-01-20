@@ -1,4 +1,4 @@
-interface FileSizeDenomination {
+interface SizeUnit {
   [key: string]: number;
 }
 
@@ -8,7 +8,7 @@ const megaByte = Math.pow(2, 20);
 const gigaByte = Math.pow(2, 30);
 const teraByte = Math.pow(2, 40);
 
-export const fileSizeDenominations: FileSizeDenomination = {
+export const sizeUnits: SizeUnit = {
   B: byte,
   K: kiloByte,
   M: megaByte,
