@@ -3,3 +3,5 @@ lib/
 
 pnpm-error.log
 pnpm-debug.log
+
+coverage/

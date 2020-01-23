@@ -6,10 +6,17 @@
   "types": "./lib/types.d.ts",
   "scripts": {
     "build": "rimraf lib && tsc && cp src/global.d.ts ./lib/types.d.ts",
-    "lint": "eslint src/**/*.ts --fix",
+    "lint": "eslint src/**/*.ts test/**/*.ts --fix",
+    "test": "jest",
+    "test:coverage": "pnpm run test -- --coverage",
     "release:patch": "npm version patch && git push --tags origin master",
     "release:minor": "npm version minor && git push --tags origin master",
     "release:major": "npm version major && git push --tags origin master"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm run lint"
+    }
   },
   "keywords": [],
   "author": "Mark Stevens",
@@ -19,15 +26,19 @@
     "url": "https://github.com/markdstevens/webpack-bundle-size-limit-plugin/"
   },
   "devDependencies": {
-    "@types/webpack": "^4.41.2",
-    "@typescript-eslint/eslint-plugin": "^2.15.0",
-    "@typescript-eslint/parser": "^2.15.0",
+    "@types/jest": "^24.9.0",
+    "@types/webpack": "^4.41.3",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.0",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
-    "typescript": "^3.7.4"
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.7.5"
   }
 }

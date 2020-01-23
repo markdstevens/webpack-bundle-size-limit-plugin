@@ -6,7 +6,7 @@ import { processOptions } from './process-options';
 import { processAssetConfig } from './process-asset-config';
 import { execSync } from 'child_process';
 import { error } from './error';
-import { parseMaxSize } from './max-size-regex';
+import { parseMaxSize } from './parse-max-size';
 
 export type Compilation = compilationType.Compilation;
 

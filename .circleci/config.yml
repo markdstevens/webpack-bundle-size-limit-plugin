@@ -38,6 +38,10 @@ jobs:
           name: "Lint"
           command: pnpm run lint
 
+      - run:
+          name: "Unit tests"
+          command: pnpm run test
+
       - persist_to_workspace:
           root: ~/repo
           paths: .

@@ -7,3 +7,4 @@ pnpm-debug.log
 .circleci/
 src/
 tsconfig.json
+coverage/
