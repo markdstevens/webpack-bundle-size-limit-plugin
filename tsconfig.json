@@ -7,9 +7,13 @@
     "baseUrl": "./src",
     "noImplicitAny": true,
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "src/*": [ "*" ]
+    }
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", 
+    "./test/**/*"
   ],
 }

@@ -11,13 +11,13 @@ export const parseMaxSize = (maxSize: string): MaxSize => {
   const result = maxSize.match(maxSizeRegex);
 
   if (result && result.groups) {
-    const { unit } = result.groups;
+    const { unit, unParsedSize, space } = result.groups;
 
     return {
-      exactUnit: unit ?? null,
-      unitForIndex: unit?.toUpperCase() ?? null,
-      unParsedSize: result.groups.unParsedSize ?? null,
-      hasSpace: Boolean(result.groups.space)
+      exactUnit: unit,
+      unitForIndex: unit.toUpperCase(),
+      unParsedSize: unParsedSize,
+      hasSpace: Boolean(space)
     };
   }
 

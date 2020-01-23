@@ -3,7 +3,7 @@ import { error } from './error';
 import { Config } from './types';
 import { sizeUnits } from './size-units';
 import { Compilation } from './webpack-bundle-size-limit-plugin';
-import { parseMaxSize } from './max-size-regex';
+import { parseMaxSize } from './parse-max-size';
 
 export const getConfigFilePath = (
   options: WebpackBundleSizeLimitPluginOpts,

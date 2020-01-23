@@ -5,7 +5,7 @@ module.exports =  {
     'google',
     'plugin:prettier/recommended'
   ],
- parserOptions:  {
+  parserOptions:  {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
