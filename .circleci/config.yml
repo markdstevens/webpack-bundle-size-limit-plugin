@@ -12,6 +12,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: 'Install yarn'
+          command: curl -o- -L https://yarnpkg.com/install.sh | bash
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
