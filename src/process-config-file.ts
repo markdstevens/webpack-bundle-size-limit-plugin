@@ -1,12 +1,12 @@
 import { existsSync } from 'fs';
 import { error } from './error';
-import { Config } from './types';
+import { Config, WebpackBundleSizeLimitPluginOptions } from './types';
 import { sizeUnits } from './size-units';
 import { Compilation } from './webpack-bundle-size-limit-plugin';
 import { parseMaxSize } from './parse-max-size';
 
 export const getConfigFilePath = (
-  options: WebpackBundleSizeLimitPluginOpts,
+  options: WebpackBundleSizeLimitPluginOptions,
   compilation: Compilation
 ): string | null => {
   const packageJsonFile = `${process.cwd()}/package.json`;
@@ -43,32 +43,35 @@ const getConfig = (
 
 export const processConfigFile = (
   configPath: string,
-  compilation: Compilation
+  compilation: Compilation,
+  options: WebpackBundleSizeLimitPluginOptions
 ): Config | null => {
   const rawConfig = getConfig(configPath, compilation);
 
   if (rawConfig) {
     const clonedConfig = Object.assign({}, rawConfig);
 
-    if (!clonedConfig.bundles) {
+    const bundleKey = options.key ?? 'bundles';
+
+    if (!clonedConfig[bundleKey]) {
       compilation.errors.push(
-        error('Config object must have a "bundles" field')
+        error(`Config object must have a "${bundleKey}" field`)
       );
       return null;
     }
 
-    if (!(clonedConfig.bundles instanceof Array)) {
+    if (!(clonedConfig[bundleKey] instanceof Array)) {
       compilation.errors.push(
         error([
-          'Invalid type for config.bundles',
+          `Invalid type for config.${bundleKey}`,
           'Expected: Array',
-          `Found:    ${typeof clonedConfig.bundles}`
+          `Found:    ${typeof clonedConfig[bundleKey]}`
         ])
       );
       return null;
     }
 
-    clonedConfig.bundles.forEach(bundle => {
+    clonedConfig[bundleKey].forEach(bundle => {
       if (!bundle.name) {
         compilation.errors.push(
           error('Config entry is missing "name" property')

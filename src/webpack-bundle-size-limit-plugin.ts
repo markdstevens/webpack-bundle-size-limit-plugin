@@ -1,6 +1,6 @@
 import { getConfigFilePath, processConfigFile } from './process-config-file';
 import { sizeUnits } from './size-units';
-import { Bundle } from './types';
+import { Bundle, WebpackBundleSizeLimitPluginOptions } from './types';
 import { Compiler, compilation as compilationType } from 'webpack';
 import { processOptions } from './process-options';
 import { processAssetConfig } from './process-asset-config';
@@ -10,10 +10,10 @@ import { parseMaxSize } from './parse-max-size';
 
 export type Compilation = compilationType.Compilation;
 
-class WebpackBundleSizeLimitPlugin {
-  private options: WebpackBundleSizeLimitPluginOpts | null = null;
+export class WebpackBundleSizeLimitPlugin {
+  private options: WebpackBundleSizeLimitPluginOptions | null = null;
 
-  constructor(options: WebpackBundleSizeLimitPluginOpts = {}) {
+  constructor(options: WebpackBundleSizeLimitPluginOptions = {}) {
     this.options = options;
   }
 
@@ -57,7 +57,11 @@ class WebpackBundleSizeLimitPlugin {
         const configFilePath = getConfigFilePath(options, compilation);
 
         if (configFilePath) {
-          const config = processConfigFile(configFilePath, compilation);
+          const config = processConfigFile(
+            configFilePath,
+            compilation,
+            options
+          );
 
           if (config) {
             for (const asset in compilation.assets) {
@@ -99,5 +103,3 @@ class WebpackBundleSizeLimitPlugin {
     );
   }
 }
-
-module.exports = WebpackBundleSizeLimitPlugin;

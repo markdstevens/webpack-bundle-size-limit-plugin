@@ -9,11 +9,8 @@
     "strict": true,
     "esModuleInterop": true,
     "paths": {
-      "src/*": [ "*" ]
+      "src/*": ["*"]
     }
   },
-  "include": [
-    "./src/**/*", 
-    "./test/**/*"
-  ],
+  "include": ["./src/**/*"]
 }

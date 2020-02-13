@@ -3,44 +3,44 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:10.9.0
+    - image: circleci/node:12.9.1
 
 jobs:
   build:
-    <<: *defaults  
+    <<: *defaults
 
     steps:
       - checkout
+
+      - run:
+          name: 'Install yarn'
+          command: curl -o- -L https://yarnpkg.com/install.sh | bash
 
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
 
-      - run: 
-          name: "Install pnpm"
-          command: sudo npm add -g pnpm
-      
       - run:
-          name: "Install packages"
-          command: pnpm i
+          name: 'Install packages'
+          command: yarn
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: 
-          name: "Typescript build"
-          command: pnpm run build
-      
       - run:
-          name: "Lint"
-          command: pnpm run lint
+          name: 'Typescript build'
+          command: yarn build
 
       - run:
-          name: "Unit tests"
-          command: pnpm run test
+          name: 'Lint'
+          command: yarn lint
+
+      - run:
+          name: 'Unit tests'
+          command: yarn test
 
       - persist_to_workspace:
           root: ~/repo
@@ -55,12 +55,9 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
-          name: "Install pnpm"
-          command: sudo npm add -g pnpm
-      - run:
           name: Publish package
-          command: pnpm publish
-            
+          command: yarn publish
+
 workflows:
   version: 2
   build-deploy:

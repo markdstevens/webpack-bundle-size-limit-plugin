@@ -1,8 +1,9 @@
 import { error } from './error';
 import { Compilation } from './webpack-bundle-size-limit-plugin';
+import { WebpackBundleSizeLimitPluginOptions } from './types';
 
 const processIncludeExclude = (
-  options: WebpackBundleSizeLimitPluginOpts,
+  options: WebpackBundleSizeLimitPluginOptions,
   compilation: Compilation,
   includeExclude: 'include' | 'exclude'
 ): void => {
@@ -40,9 +41,9 @@ const processIncludeExclude = (
 };
 
 export const processOptions = (
-  rawOptions: WebpackBundleSizeLimitPluginOpts | null,
+  rawOptions: WebpackBundleSizeLimitPluginOptions | null,
   compilation: Compilation
-): WebpackBundleSizeLimitPluginOpts => {
+): WebpackBundleSizeLimitPluginOptions => {
   const options = Object.assign({}, rawOptions);
 
   if (options.include && options.exclude) {
