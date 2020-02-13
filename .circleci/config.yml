@@ -13,10 +13,6 @@ jobs:
       - checkout
 
       - run:
-          name: 'Set node version'
-          command: nvm install
-
-      - run:
           name: 'Install yarn'
           command: curl -o- -L https://yarnpkg.com/install.sh | bash
 
