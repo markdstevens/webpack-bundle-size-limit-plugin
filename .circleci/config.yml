@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:10.9.0
+    - image: circleci/node:12.9.1
 
 jobs:
   build:
@@ -11,6 +11,10 @@ jobs:
 
     steps:
       - checkout
+
+      - run:
+          name: 'Set node version'
+          command: nvm install
 
       - run:
           name: 'Install yarn'
