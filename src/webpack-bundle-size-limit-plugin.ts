@@ -4,7 +4,7 @@ import { Bundle, WebpackBundleSizeLimitPluginOptions } from './types';
 import { Compiler, compilation as compilationType } from 'webpack';
 import { processOptions } from './process-options';
 import { processAssetConfig } from './process-asset-config';
-import { execSync } from 'child_process';
+import { statSync } from 'fs';
 import { error } from './error';
 import { parseMaxSize } from './parse-max-size';
 
@@ -40,13 +40,8 @@ export class WebpackBundleSizeLimitPlugin {
   }
 
   private getSizeInBytes(asset: string, { outputPath }: Compiler): number {
-    return parseFloat(
-      execSync(
-        `wc -c ${outputPath}/${asset} | awk '{$1=$1};1' | cut -d$' ' -f1`
-      )
-        .toString()
-        .trim()
-    );
+    const stats = statSync(`${outputPath}/${asset}`);
+    return stats.size;
   }
 
   apply(compiler: Compiler): void {
