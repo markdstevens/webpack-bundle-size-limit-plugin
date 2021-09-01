@@ -4,7 +4,6 @@ import { Bundle, WebpackBundleSizeLimitPluginOptions } from './types';
 import { Compiler, compilation as compilationType } from 'webpack';
 import { processOptions } from './process-options';
 import { processAssetConfig } from './process-asset-config';
-import { execSync } from 'child_process';
 import { error } from './error';
 import { parseMaxSize } from './parse-max-size';
 
@@ -39,16 +38,6 @@ export class WebpackBundleSizeLimitPlugin {
     return `${rawSize}${hasSpace ? ' ' : ''}${exactUnit}`;
   }
 
-  private getSizeInBytes(asset: string, { outputPath }: Compiler): number {
-    return parseFloat(
-      execSync(
-        `wc -c ${outputPath}/${asset} | awk '{$1=$1};1' | cut -d$' ' -f1`
-      )
-        .toString()
-        .trim()
-    );
-  }
-
   apply(compiler: Compiler): void {
     compiler.hooks.afterEmit.tapAsync(
       'WebpackBundleSizeLimitPlugin',
@@ -64,11 +53,13 @@ export class WebpackBundleSizeLimitPlugin {
           );
 
           if (config) {
-            for (const asset in compilation.assets) {
+            const assets = compilation.assets;
+            for (let index = 0; index < Object.keys(assets).length; index++) {
+              const asset = assets[index];
               if (!this.filterAssetByFileExtension(asset)) {
                 const fileWithAssetConfig = {
                   asset,
-                  sizeInBytes: this.getSizeInBytes(asset, compiler),
+                  sizeInBytes: assets[asset].size(),
                   config: processAssetConfig(
                     asset,
                     config,
